@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -16,6 +17,12 @@ CompleteBinaryTree::~CompleteBinaryTree() {
 }
 
 void CompleteBinaryTree::add(int value) {
+    // Проверка на уникальность значения
+    if (search(value)) {
+        cout << "Value already exists in the tree.\n";
+        return;
+    }
+
     if (size == capacity) {
         capacity *= 2;
         int* newData = new int[capacity];
@@ -38,20 +45,46 @@ bool CompleteBinaryTree::search(int value) const {
 }
 
 void CompleteBinaryTree::print() const {
-    for (int i = 0; i < size; i++) {
-        cout << data[i] << " ";
+    int height = log2(size + 1);
+    int maxWidth = pow(2, height) * 2;
+
+    for (int level = 0; level <= height; level++) {
+        int levelStart = pow(2, level) - 1;
+        int levelEnd = pow(2, level + 1) - 2;
+        int levelWidth = pow(2, height - level) * 2;
+
+        for (int i = levelStart; i <= levelEnd && i < size; i++) {
+            int padding = (maxWidth / (levelWidth + 1)) - 1;
+            for (int p = 0; p < padding; p++) {
+                cout << " ";
+            }
+            cout << data[i];
+            for (int p = 0; p < padding; p++) {
+                cout << " ";
+            }
+        }
+        cout << "\n";
     }
-    cout << "\n";
+}
+
+void CompleteBinaryTree::printAsTable() const {
+    for (int i = 0; i < size; i++) {
+        int leftChild = 2 * i + 1;
+        int rightChild = 2 * i + 2;
+        cout << "Node " << i << ": " << data[i];
+        if (leftChild < size) {
+            cout << " Left Child: " << data[leftChild];
+        }
+        if (rightChild < size) {
+            cout << " Right Child: " << data[rightChild];
+        }
+        cout << "\n";
+    }
 }
 
 bool CompleteBinaryTree::isComplete() const {
     // Вычисляем высоту дерева
-    int height = 0;
-    int nodes = 1;
-    while (nodes <= size) {
-        nodes *= 2;
-        height++;
-    }
+    int height = log2(size + 1);
 
     // Максимальное количество узлов для полного бинарного дерева на высоте height
     int maxNodes = (1 << height) - 1;

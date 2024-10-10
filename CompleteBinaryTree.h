@@ -20,6 +20,7 @@ public:
     void add(int value);  
     bool search(int value) const; 
     void print() const;
+    void printAsTable() const; 
     bool isComplete() const;
     void saveToFile(const string& filename) const;
     void loadFromFile(const string& filename);
