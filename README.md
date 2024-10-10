@@ -15,6 +15,7 @@
 ```cpp
 
 #include "Stack.h"
+using namespace std;
 
 // Конструктор с параметром начальной вместимости
 Stack::Stack(int initialCapacity) {
@@ -45,7 +46,7 @@ void Stack::push(int value) {
 // Удаление элемента из стека
 int Stack::pop() {
     if (top == -1) {
-        std::cout << "Stack is empty!\n";
+        cout << "Stack is empty!\n";
         return -1;
     }
     return data[top--];
@@ -54,7 +55,7 @@ int Stack::pop() {
 // Получение элемента с вершины стека без удаления
 int Stack::peek() const {
     if (top == -1) {
-        std::cout << "Stack is empty!\n";
+        cout << "Stack is empty!\n";
         return -1;
     }
     return data[top];
@@ -68,16 +69,16 @@ bool Stack::isEmpty() const {
 // Вывод стека на экран
 void Stack::print() const {
     for (int i = 0; i <= top; i++) {
-        std::cout << data[i] << " ";
+        cout << data[i] << " ";
     }
-    std::cout << "\n";
+    cout << "\n";
 }
 
 // Сохранение стека в файл
-void Stack::saveToFile(const std::string& filename) const {
-    std::ofstream file(filename);
+void Stack::saveToFile(const string& filename) const {
+    ofstream file(filename);
     if (!file.is_open()) {
-        std::cout << "Failed to open file for writing!\n";
+        cout << "Failed to open file for writing!\n";
         return;
     }
     file << "Stack\n";
@@ -88,16 +89,16 @@ void Stack::saveToFile(const std::string& filename) const {
 }
 
 // Загрузка стека из файла
-void Stack::loadFromFile(const std::string& filename) {
-    std::ifstream file(filename);
+void Stack::loadFromFile(const string& filename) {
+    ifstream file(filename);
     if (!file.is_open()) {
-        std::cout << "Failed to open file for reading!\n";
+        cout << "Failed to open file for reading!\n";
         return;
     }
-    std::string header;
+    string header;
     file >> header;
     if (header != "Stack") {
-        std::cout << "Invalid file format!\n";
+        cout << "Invalid file format!\n";
         return;
     }
     int value;
