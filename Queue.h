@@ -3,10 +3,11 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 class Queue {
 private:
-    int* data;
+    std::string* data;  // Изменено на std::string*
     int front;
     int rear;
     int capacity;
@@ -15,9 +16,9 @@ public:
     Queue(int initialCapacity = 10);
     ~Queue();
 
-    void push(int value);
-    int pop();
-    int peek() const;
+    void push(const std::string& value);  // Изменено на std::string
+    std::string pop();  // Изменено на std::string
+    std::string peek() const;  // Изменено на std::string
     bool isEmpty() const;
     void print() const;
     void saveToFile(const std::string& filename) const;

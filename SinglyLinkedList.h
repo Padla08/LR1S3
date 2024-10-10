@@ -3,9 +3,12 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
+
+using namespace std;
 
 struct Node {
-    int data;
+    string data;
     Node* next;
 };
 
@@ -18,15 +21,15 @@ public:
     SinglyLinkedList();
     ~SinglyLinkedList();
 
-    void addToHead(int value);
-    void addToTail(int value);
+    void addToHead(const string& value);
+    void addToTail(const string& value);
     void removeFromHead();
     void removeFromTail();
-    void removeByValue(int value);
-    bool search(int value) const;
+    void removeByValue(const string& value);
+    bool search(const string& value) const;
     void print() const;
-    void saveToFile(const std::string& filename) const;
-    void loadFromFile(const std::string& filename);
+    void saveToFile(const string& filename) const;
+    void loadFromFile(const string& filename);
 };
 
-#endif
+#endif // SINGLYLINKEDLIST_H
