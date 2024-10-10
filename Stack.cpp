@@ -1,10 +1,12 @@
 #include "Stack.h"
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
 Stack::Stack(int initialCapacity) {
     capacity = initialCapacity;
-    data = new int[capacity];
+    data = new string[capacity];  // Изменено на string
     top = -1;
 }
 
@@ -12,10 +14,10 @@ Stack::~Stack() {
     delete[] data;
 }
 
-void Stack::push(int value) {
+void Stack::push(const string& value) {  // Изменено на string
     if (top == capacity - 1) {
         capacity *= 2;
-        int* newData = new int[capacity];
+        string* newData = new string[capacity];  // Изменено на string
         for (int i = 0; i <= top; i++) {
             newData[i] = data[i];
         }
@@ -25,18 +27,18 @@ void Stack::push(int value) {
     data[++top] = value;
 }
 
-int Stack::pop() {
+string Stack::pop() {  // Изменено на string
     if (top == -1) {
         cout << "Stack is empty!\n";
-        return -1;
+        return "";  // Возвращаем пустую строку вместо -1
     }
     return data[top--];
 }
 
-int Stack::peek() const {
+string Stack::peek() const {  // Изменено на string
     if (top == -1) {
         cout << "Stack is empty!\n";
-        return -1;
+        return "";  // Возвращаем пустую строку вместо -1
     }
     return data[top];
 }
@@ -72,13 +74,13 @@ void Stack::loadFromFile(const string& filename) {
         return;
     }
     string header;
-    file >> header;
+    getline(file, header);
     if (header != "Stack") {
         cout << "Invalid file format!\n";
         return;
     }
-    int value;
-    while (file >> value) {
+    string value;
+    while (getline(file, value)) {
         push(value);
     }
     file.close();

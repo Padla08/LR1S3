@@ -1,5 +1,4 @@
 #include "SinglyLinkedList.h"
-using namespace std;
 
 SinglyLinkedList::SinglyLinkedList() {
     head = nullptr;
@@ -14,7 +13,7 @@ SinglyLinkedList::~SinglyLinkedList() {
     }
 }
 
-void SinglyLinkedList::addToHead(int value) {
+void SinglyLinkedList::addToHead(const string& value) {
     Node* newNode = new Node{ value, head };
     head = newNode;
     if (!tail) {
@@ -22,7 +21,7 @@ void SinglyLinkedList::addToHead(int value) {
     }
 }
 
-void SinglyLinkedList::addToTail(int value) {
+void SinglyLinkedList::addToTail(const string& value) {
     Node* newNode = new Node{ value, nullptr };
     if (tail) {
         tail->next = newNode;
@@ -65,7 +64,7 @@ void SinglyLinkedList::removeFromTail() {
     tail->next = nullptr;
 }
 
-void SinglyLinkedList::removeByValue(int value) {
+void SinglyLinkedList::removeByValue(const string& value) {
     Node* current = head;
     Node* previous = nullptr;
     while (current) {
@@ -88,7 +87,7 @@ void SinglyLinkedList::removeByValue(int value) {
     cout << "Value not found!\n";
 }
 
-bool SinglyLinkedList::search(int value) const {
+bool SinglyLinkedList::search(const string& value) const {
     Node* current = head;
     while (current) {
         if (current->data == value) {
@@ -135,7 +134,7 @@ void SinglyLinkedList::loadFromFile(const string& filename) {
         cout << "Invalid file format!\n";
         return;
     }
-    int value;
+    string value;
     while (file >> value) {
         addToTail(value);
     }
