@@ -5,9 +5,11 @@
 #include <fstream>
 #include <string>
 
+using namespace std;
+
 class CompleteBinaryTree {
 private:
-    std::string* data;  
+    int* data; 
     int size;
     int capacity;
 
@@ -15,12 +17,12 @@ public:
     CompleteBinaryTree(int initialCapacity = 10);
     ~CompleteBinaryTree();
 
-    void add(const std::string& value);  
-    bool search(const std::string& value) const;  
+    void add(int value);  
+    bool search(int value) const; 
     void print() const;
     bool isComplete() const;
-    void saveToFile(const std::string& filename) const;
-    void loadFromFile(const std::string& filename);
+    void saveToFile(const string& filename) const;
+    void loadFromFile(const string& filename);
 };
 
 #endif

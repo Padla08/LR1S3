@@ -8,17 +8,17 @@ using namespace std;
 CompleteBinaryTree::CompleteBinaryTree(int initialCapacity) {
     capacity = initialCapacity;
     size = 0;
-    data = new string[capacity];
+    data = new int[capacity];
 }
 
 CompleteBinaryTree::~CompleteBinaryTree() {
     delete[] data;
 }
 
-void CompleteBinaryTree::add(const string& value) {
+void CompleteBinaryTree::add(int value) {
     if (size == capacity) {
         capacity *= 2;
-        string* newData = new string[capacity];
+        int* newData = new int[capacity];
         for (int i = 0; i < size; i++) {
             newData[i] = data[i];
         }
@@ -28,7 +28,7 @@ void CompleteBinaryTree::add(const string& value) {
     data[size++] = value;
 }
 
-bool CompleteBinaryTree::search(const string& value) const {
+bool CompleteBinaryTree::search(int value) const {
     for (int i = 0; i < size; i++) {
         if (data[i] == value) {
             return true;
@@ -45,11 +45,33 @@ void CompleteBinaryTree::print() const {
 }
 
 bool CompleteBinaryTree::isComplete() const {
-    for (int i = 0; i < size; i++) {
-        if (data[i].empty()) {
-            return false;
+    // Вычисляем высоту дерева
+    int height = 0;
+    int nodes = 1;
+    while (nodes <= size) {
+        nodes *= 2;
+        height++;
+    }
+
+    // Максимальное количество узлов для полного бинарного дерева на высоте height
+    int maxNodes = (1 << height) - 1;
+
+    // Если количество узлов равно максимальному, то дерево полное
+    if (size == maxNodes) {
+        return true;
+    }
+
+    // Если количество узлов меньше максимального, проверяем, что все узлы на последнем уровне расположены слева
+    int lastLevelStart = (1 << (height - 1)) - 1; // Индекс начала последнего уровня
+    int lastLevelEnd = (1 << height) - 2; // Индекс конца последнего уровня
+
+    // Проверяем, что все узлы на последнем уровне расположены слева
+    for (int i = lastLevelStart; i < size; i++) {
+        if (i > lastLevelEnd) {
+            return false; // Если есть пропуски, дерево не полное
         }
     }
+
     return true;
 }
 
@@ -78,7 +100,7 @@ void CompleteBinaryTree::loadFromFile(const string& filename) {
         cout << "Invalid file format!\n";
         return;
     }
-    string value;
+    int value;
     while (file >> value) {
         add(value);
     }

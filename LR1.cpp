@@ -379,8 +379,8 @@ void hashTableMenu() {
 
 void completeBinaryTreeMenu() {
     CompleteBinaryTree tree;
-    int choice;
-    string value, filename;
+    int choice, value;
+    string filename;
 
     while (true) {
         cout << "Complete Binary Tree Menu:\n";
