@@ -3,11 +3,15 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
-struct HashNode {
-    int key;
-    int value;
+class HashNode {
+public:
+    std::string key;
+    std::string value;
     HashNode* next;
+
+    HashNode(const std::string& key, const std::string& value) : key(key), value(value), next(nullptr) {}
 };
 
 class HashTable {
@@ -15,15 +19,15 @@ private:
     HashNode** table;
     int capacity;
 
-    int hash(int key) const;
+    int hash(const std::string& key) const;
 
 public:
     HashTable(int initialCapacity = 10);
     ~HashTable();
 
-    void insert(int key, int value);
-    int get(int key) const;
-    void remove(int key);
+    void insert(const std::string& key, const std::string& value);
+    std::string get(const std::string& key) const;
+    void remove(const std::string& key);
     void print() const;
     void saveToFile(const std::string& filename) const;
     void loadFromFile(const std::string& filename);

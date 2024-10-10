@@ -3,26 +3,29 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
+
+using namespace std;
 
 class Array {
 private:
-    int* data;
-    int size;
+    string* data;
     int capacity;
+    int size;
 
 public:
     Array(int initialCapacity = 10);
     ~Array();
 
-    void add(int index, int value);
-    void addToEnd(int value);
-    int get(int index) const;
+    void add(int index, const string& value);
+    void addToEnd(const string& value);
+    string get(int index) const;
     void remove(int index);
-    void set(int index, int value);
+    void set(int index, const string& value);
     int length() const;
     void print() const;
-    void saveToFile(const std::string& filename) const;
-    void loadFromFile(const std::string& filename);
+    void saveToFile(const string& filename) const;
+    void loadFromFile(const string& filename);
 };
 
-#endif
+#endif // ARRAY_H
