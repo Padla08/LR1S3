@@ -1,4 +1,6 @@
 #include "DoublyLinkedList.h"
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -15,7 +17,7 @@ DoublyLinkedList::~DoublyLinkedList() {
     }
 }
 
-void DoublyLinkedList::addToHead(int value) {
+void DoublyLinkedList::addToHead(const string& value) {  // Изменено на string
     DNode* newNode = new DNode{ value, nullptr, head };
     if (head) {
         head->prev = newNode;
@@ -26,7 +28,7 @@ void DoublyLinkedList::addToHead(int value) {
     head = newNode;
 }
 
-void DoublyLinkedList::addToTail(int value) {
+void DoublyLinkedList::addToTail(const string& value) {  // Изменено на string
     DNode* newNode = new DNode{ value, tail, nullptr };
     if (tail) {
         tail->next = newNode;
@@ -69,7 +71,7 @@ void DoublyLinkedList::removeFromTail() {
     delete temp;
 }
 
-void DoublyLinkedList::removeByValue(int value) {
+void DoublyLinkedList::removeByValue(const string& value) {  // Изменено на string
     DNode* current = head;
     while (current) {
         if (current->data == value) {
@@ -93,7 +95,7 @@ void DoublyLinkedList::removeByValue(int value) {
     cout << "Value not found!\n";
 }
 
-bool DoublyLinkedList::search(int value) const {
+bool DoublyLinkedList::search(const string& value) const {  // Изменено на string
     DNode* current = head;
     while (current) {
         if (current->data == value) {
@@ -135,13 +137,13 @@ void DoublyLinkedList::loadFromFile(const string& filename) {
         return;
     }
     string header;
-    file >> header;
+    getline(file, header);
     if (header != "DoublyLinkedList") {
         cout << "Invalid file format!\n";
         return;
     }
-    int value;
-    while (file >> value) {
+    string value;
+    while (getline(file, value)) {
         addToTail(value);
     }
     file.close();

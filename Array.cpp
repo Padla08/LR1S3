@@ -1,24 +1,23 @@
 #include "Array.h"
-using namespace std;
 
 Array::Array(int initialCapacity) {
     capacity = initialCapacity;
     size = 0;
-    data = new int[capacity];
+    data = new string[capacity];
 }
 
 Array::~Array() {
     delete[] data;
 }
 
-void Array::add(int index, int value) {
+void Array::add(int index, const string& value) {
     if (index < 0 || index > size) {
         cout << "Invalid index!\n";
         return;
     }
     if (size == capacity) {
         capacity *= 2;
-        int* newData = new int[capacity];
+        string* newData = new string[capacity];
         for (int i = 0; i < size; i++) {
             newData[i] = data[i];
         }
@@ -32,14 +31,14 @@ void Array::add(int index, int value) {
     size++;
 }
 
-void Array::addToEnd(int value) {
+void Array::addToEnd(const string& value) {
     add(size, value);
 }
 
-int Array::get(int index) const {
+string Array::get(int index) const {
     if (index < 0 || index >= size) {
         cout << "Invalid index!\n";
-        return -1;
+        return "";
     }
     return data[index];
 }
@@ -55,7 +54,7 @@ void Array::remove(int index) {
     size--;
 }
 
-void Array::set(int index, int value) {
+void Array::set(int index, const string& value) {
     if (index < 0 || index >= size) {
         cout << "Invalid index!\n";
         return;
@@ -99,7 +98,7 @@ void Array::loadFromFile(const string& filename) {
         cout << "Invalid file format!\n";
         return;
     }
-    int value;
+    string value;
     while (file >> value) {
         addToEnd(value);
     }

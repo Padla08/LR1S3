@@ -1,19 +1,24 @@
 #include "CompleteBinaryTree.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+
 using namespace std;
+
 CompleteBinaryTree::CompleteBinaryTree(int initialCapacity) {
     capacity = initialCapacity;
     size = 0;
-    data = new int[capacity];
+    data = new string[capacity];
 }
 
 CompleteBinaryTree::~CompleteBinaryTree() {
     delete[] data;
 }
 
-void CompleteBinaryTree::add(int value) {
+void CompleteBinaryTree::add(const string& value) {
     if (size == capacity) {
         capacity *= 2;
-        int* newData = new int[capacity];
+        string* newData = new string[capacity];
         for (int i = 0; i < size; i++) {
             newData[i] = data[i];
         }
@@ -23,7 +28,7 @@ void CompleteBinaryTree::add(int value) {
     data[size++] = value;
 }
 
-bool CompleteBinaryTree::search(int value) const {
+bool CompleteBinaryTree::search(const string& value) const {
     for (int i = 0; i < size; i++) {
         if (data[i] == value) {
             return true;
@@ -41,7 +46,7 @@ void CompleteBinaryTree::print() const {
 
 bool CompleteBinaryTree::isComplete() const {
     for (int i = 0; i < size; i++) {
-        if (data[i] == 0) {
+        if (data[i].empty()) {
             return false;
         }
     }
@@ -73,7 +78,7 @@ void CompleteBinaryTree::loadFromFile(const string& filename) {
         cout << "Invalid file format!\n";
         return;
     }
-    int value;
+    string value;
     while (file >> value) {
         add(value);
     }
