@@ -1,5 +1,10 @@
 #include "HashTable.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
 using namespace std;
+
 HashTable::HashTable(int initialCapacity) {
     capacity = initialCapacity;
     table = new HashNode * [capacity]();
@@ -18,11 +23,15 @@ HashTable::~HashTable() {
     delete[] table;
 }
 
-int HashTable::hash(int key) const {
-    return key % capacity;
+int HashTable::hash(const std::string& key) const {
+    int hash = 0;
+    for (char ch : key) {
+        hash += ch;
+    }
+    return hash % capacity;
 }
 
-void HashTable::insert(int key, int value) {
+void HashTable::insert(const std::string& key, const std::string& value) {
     int index = hash(key);
     HashNode* prev = nullptr;
     HashNode* entry = table[index];
@@ -31,7 +40,7 @@ void HashTable::insert(int key, int value) {
         entry = entry->next;
     }
     if (!entry) {
-        entry = new HashNode{ key, value, nullptr };
+        entry = new HashNode(key, value);
         if (prev) {
             prev->next = entry;
         }
@@ -44,7 +53,7 @@ void HashTable::insert(int key, int value) {
     }
 }
 
-int HashTable::get(int key) const {
+std::string HashTable::get(const std::string& key) const {
     int index = hash(key);
     HashNode* entry = table[index];
     while (entry) {
@@ -54,10 +63,10 @@ int HashTable::get(int key) const {
         entry = entry->next;
     }
     cout << "Key not found!\n";
-    return -1;
+    return "";
 }
 
-void HashTable::remove(int key) {
+void HashTable::remove(const std::string& key) {
     int index = hash(key);
     HashNode* prev = nullptr;
     HashNode* entry = table[index];
@@ -112,13 +121,17 @@ void HashTable::loadFromFile(const string& filename) {
         return;
     }
     string header;
-    file >> header;
+    getline(file, header);
     if (header != "HashTable") {
         cout << "Invalid file format!\n";
         return;
     }
-    int key, value;
-    while (file >> key >> value) {
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string key, value;
+        getline(ss, key, ',');
+        getline(ss, value, ',');
         insert(key, value);
     }
     file.close();

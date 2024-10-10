@@ -12,8 +12,8 @@ using namespace std;
 
 void arrayMenu() {
     Array arr;
-    int choice, index, value;
-    string filename;
+    int choice, index;
+    string value, filename;
 
     while (true) {
         cout << "Array Menu:\n";
@@ -86,8 +86,9 @@ void arrayMenu() {
 
 void singlyLinkedListMenu() {
     SinglyLinkedList list;
-    int choice, value;
+    int choice;
     string filename;
+    string value;
 
     while (true) {
         cout << "Singly Linked List Menu:\n";
@@ -154,8 +155,8 @@ void singlyLinkedListMenu() {
 
 void doublyLinkedListMenu() {
     DoublyLinkedList list;
-    int choice, value;
-    string filename;
+    int choice;
+    string value, filename;
 
     while (true) {
         cout << "Doubly Linked List Menu:\n";
@@ -222,8 +223,8 @@ void doublyLinkedListMenu() {
 
 void queueMenu() {
     Queue queue;
-    int choice, value;
-    string filename;
+    int choice;
+    string value, filename;
 
     while (true) {
         cout << "Queue Menu:\n";
@@ -272,8 +273,8 @@ void queueMenu() {
 
 void stackMenu() {
     Stack stack;
-    int choice, value;
-    string filename;
+    int choice;
+    string value, filename;
 
     while (true) {
         cout << "Stack Menu:\n";
@@ -322,8 +323,8 @@ void stackMenu() {
 
 void hashTableMenu() {
     HashTable hashTable;
-    int choice, key, value;
-    string filename;
+    int choice;
+    string key, value, filename;
 
     while (true) {
         cout << "Hash Table Menu:\n";
@@ -378,8 +379,8 @@ void hashTableMenu() {
 
 void completeBinaryTreeMenu() {
     CompleteBinaryTree tree;
-    int choice, value;
-    string filename;
+    int choice;
+    string value, filename;
 
     while (true) {
         cout << "Complete Binary Tree Menu:\n";

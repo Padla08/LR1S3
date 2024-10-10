@@ -1,10 +1,12 @@
 #include "Queue.h"
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
 Queue::Queue(int initialCapacity) {
     capacity = initialCapacity;
-    data = new int[capacity];
+    data = new string[capacity];  // Изменено на string
     front = 0;
     rear = -1;
 }
@@ -13,10 +15,10 @@ Queue::~Queue() {
     delete[] data;
 }
 
-void Queue::push(int value) {
+void Queue::push(const string& value) {  // Изменено на string
     if (rear == capacity - 1) {
         capacity *= 2;
-        int* newData = new int[capacity];
+        string* newData = new string[capacity];  // Изменено на string
         for (int i = 0; i <= rear; i++) {
             newData[i] = data[i];
         }
@@ -26,18 +28,18 @@ void Queue::push(int value) {
     data[++rear] = value;
 }
 
-int Queue::pop() {
+string Queue::pop() {  // Изменено на string
     if (front > rear) {
         cout << "Queue is empty!\n";
-        return -1;
+        return "";  // Возвращаем пустую строку вместо -1
     }
     return data[front++];
 }
 
-int Queue::peek() const {
+string Queue::peek() const {  // Изменено на string
     if (front > rear) {
         cout << "Queue is empty!\n";
-        return -1;
+        return "";  // Возвращаем пустую строку вместо -1
     }
     return data[front];
 }
@@ -73,13 +75,13 @@ void Queue::loadFromFile(const string& filename) {
         return;
     }
     string header;
-    file >> header;
+    getline(file, header);
     if (header != "Queue") {
         cout << "Invalid file format!\n";
         return;
     }
-    int value;
-    while (file >> value) {
+    string value;
+    while (getline(file, value)) {
         push(value);
     }
     file.close();
